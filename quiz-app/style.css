@@ -30,6 +30,8 @@ body {
 
 h2 {
   margin: 0;
+  text-align: center;
+  padding: 1rem;
 }
 
 .quiz-container ul {
