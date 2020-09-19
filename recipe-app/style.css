@@ -105,6 +105,9 @@ header button {
   display: flex;
   flex-direction: column;
   margin: 0 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   /* background-color: #FFF; */
 }
 
@@ -183,3 +186,21 @@ header button {
 .meal-body button:focus {
   outline: none;
 }
+
+.fav-circle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.clear {
+  border:none;
+  position: absolute;
+  right: 0;
+  top:0;
+  background-color: transparent;
+  color: #FFF;
+  font-size: 1.5rem;
+}
+
