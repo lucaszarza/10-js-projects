@@ -102,6 +102,8 @@ header button {
 }
 
 .fav-meals li {
+  cursor: pointer;
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: 0 5px;
@@ -109,6 +111,16 @@ header button {
   align-items: center;
   text-align: center;
   /* background-color: #FFF; */
+}
+
+.fav-meals li .clear {
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
 .fav-meals li img {
@@ -127,6 +139,11 @@ header button {
   margin: 1rem 0;
   font-weight: bold;
   color: #fff;
+
+  white-space: nowrap;
+  width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .meals-container {
@@ -139,6 +156,7 @@ header button {
   overflow: hidden;
   border-radius: 3px;
   box-shadow: 0 0 10px 2px #3333331a;
+  margin: 0 0 1rem;
 }
 
 .meal-header {
@@ -187,20 +205,59 @@ header button {
   outline: none;
 }
 
-.fav-circle {
-  position: relative;
+.modal-container {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
-  
+  align-items: center;
 }
 
-.clear {
-  border:none;
+.modal-container.hidden {
+  opacity: 0;
+  user-select: none;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.modal {
+  background-color: #fff;
+  max-width: 800px;
+  max-height: 100vh;
+  width: 100%;
+  padding: 0 2rem;
+  border-radius: 5px;
+  overflow: auto;
+  position: relative;
+  display: flex;
+}
+
+.modal h1 {
+  text-align: center;
+}
+
+.modal img {
+  display: flex;
+  border-radius: 5px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.modal .close-modal {
   position: absolute;
-  right: 0;
-  top:0;
-  background-color: transparent;
-  color: #FFF;
+  top: 1rem;
+  right: 1rem;
+  border: none;
   font-size: 1.5rem;
+  cursor: pointer;
+  background-color: transparent;
 }
 
+.modal-text {
+  font-size: 0.8rem;
+  overflow: visible;
+}

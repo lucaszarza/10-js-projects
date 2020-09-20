@@ -1,5 +1,12 @@
-const meals = document.getElementById('meals')
+const mealsEl = document.getElementById('meals')
 const favoriteContainer = document.getElementById('fav-meals')
+
+const mealModal = document.getElementById('meal-modal')
+const modalCloseBtn = document.getElementById('close-modal')
+const mealInfoEl = document.getElementById('meal-info')
+
+const searchTerm = document.getElementById('search-term')
+const searchBtn = document.getElementById('search')
 
 getRandomMeal()
 showFavMeals()
@@ -26,7 +33,8 @@ async function getMealsBySearch(term) {
   const resp = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + term)
 
   const respData = await resp.json()
-  const meals = respData.meals
+
+  const meals = await respData.meals
 
   return meals
 }
@@ -37,7 +45,7 @@ function addMeal(mealData, random = false) {
 
   meal.innerHTML = `<div class="meal-header">
 
-    ${random ? '<span class="random">Random Meal</span>' : ''}
+    ${random ? '<span class="random">Random Recipe</span>' : ''}
 
     <img
       src="${mealData.strMealThumb}"
@@ -52,7 +60,7 @@ function addMeal(mealData, random = false) {
   </div>`
 
   const btn = meal.querySelector('.meal-body .fav-button')
-  
+
   btn.addEventListener('click', () => {
     const icon = meal.querySelector('i')
     icon.classList.toggle('active')
@@ -70,7 +78,12 @@ function addMeal(mealData, random = false) {
     favoriteContainer.innerHTML = ''
     showFavMeals()
   })
-  meals.appendChild(meal)
+
+  meal.addEventListener('click', () => {
+    showMealInfo(mealData)
+  })
+
+  mealsEl.appendChild(meal)
 }
 
 function addMealLS(mealId) {
@@ -82,7 +95,6 @@ function removeMealLS(mealId) {
   const mealIds = getMealsLS()
 
   localStorage.setItem('mealIds', JSON.stringify(mealIds.filter((id) => id !== mealId)))
-  showFavMeals()
 }
 
 function getMealsLS() {
@@ -93,24 +105,21 @@ function getMealsLS() {
 
 async function showFavMeals() {
   // clean the container
-  favoriteContainer.innerHTML = "";
+  favoriteContainer.innerHTML = ''
 
-  const mealIds = getMealsLS();
+  const mealIds = getMealsLS()
 
   for (let i = 0; i < mealIds.length; i++) {
-      const mealId = mealIds[i];
-      meal = await getMealById(mealId);
+    const mealId = mealIds[i]
+    meal = await getMealById(mealId)
 
-      addMealFav(meal);
+    addMealFav(meal)
   }
 }
 
-
 function addMealFav(mealData) {
   const favMeal = document.createElement('li')
-  favMeal.classList.add('fav-circle')
 
-  favMeal == undefined ? console.log(favMeal) : ''
   favMeal.innerHTML = `
     <img
       src="${mealData.strMealThumb}"
@@ -120,10 +129,82 @@ function addMealFav(mealData) {
   `
   const btn = favMeal.querySelector('.clear')
 
-  btn.addEventListener('click', function(){
+  btn.addEventListener('click', function () {
     removeMealLS(mealData.idMeal)
-    
+
+    showFavMeals()
+  })
+
+  favMeal.addEventListener('click', () => {
+    showMealInfo(mealData)
   })
 
   favoriteContainer.appendChild(favMeal)
 }
+
+function showMealInfo(mealData) {
+  const mealEl = document.createElement('div')
+
+  mealInfoEl.innerHTML = ''
+
+  const ingredients = []
+
+  for (let i = 1; i <= 20; i++) {
+    if (mealData['strIngredient' + i]) {
+      ingredients.push(`${mealData['strIngredient' + i]} - ${mealData['strMeasure' + i]}`)
+      console.log(ingredients)
+    } else {
+      break
+    }
+  }
+
+  mealEl.innerHTML = `
+    <h1>${mealData.strMeal}</h1>
+    <img
+      src="${mealData.strMealThumb}"
+      alt="${mealData.strMeal}"
+    />
+    <p class="modal-text">
+      ${mealData.strInstructions}
+    </p>
+    <h3>Ingredients</h3>
+    <ul>
+      ${ingredients
+        .map(
+          (ing) => `
+      <li>${ing}</li>
+      `
+        )
+        .join('')}
+    </ul>
+    
+    `
+
+  //   <ul>
+  //   <li>ing 1 / measure</li>
+  //   <li>ing 2 / measure</li>
+  //   <li>ing 3 / measure</li>
+  // </ul>
+
+  mealInfoEl.appendChild(mealEl)
+
+  mealModal.classList.remove('hidden')
+}
+
+searchBtn.addEventListener('click', async function () {
+  mealsEl.innerHTML = ''
+  const search = searchTerm.value
+  const meals = await getMealsBySearch(search)
+
+  if (meals) {
+    for (meal of meals) {
+      addMeal(meal)
+    }
+  } else {
+    alert('No results found')
+  }
+})
+
+modalCloseBtn.addEventListener('click', () => {
+  mealModal.classList.add('hidden')
+})
