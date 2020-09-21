@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./style.css"/>
-  <script src="./script.js" defer></script>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js" defer></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div id="notes" class="notes-container">
+      <div class="note-header">
+        <button id="edit"><i class="fas fa-edit"></i></button>
+        <button id="delete"><i class="fas fa-trash-alt"></i></button>
+      </div>
+      <div class="note-body hidden"></div>
+      <textarea class="note-edit-text"></textarea>
+    </div>
+  </body>
 </html>

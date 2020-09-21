@@ -1,11 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  margin:0;
+  margin: 0;
+  display: flex;
   font-family: "Poppins", sans-serif;
+  background-color: #7bdaf3;
+  flex-wrap: wrap;
 }
 
+.notes-container {
+  height: 300px;
+  width: 300px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 15px;
+}
+
+.notes-container .note-header {
+  background-color: #9ec862;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 10px 10px 0 0;
+}
+
+.notes-container .note-header button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+/* .notes-container .note-header button:focus {
+  outline: none;
+} */
+
+.notes-container .note-body {
+  height: 400px;
+  width: 100%;
+  padding: 0 1rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+
+}
+
+.notes-container textarea {
+  min-height: 260px;
+  height: 400px;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.notes-container .hidden {
+  display: none;
+}
