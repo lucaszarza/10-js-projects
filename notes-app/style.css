@@ -18,6 +18,7 @@ body {
   background-color: #fff;
   margin: 20px;
   border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .notes-container .note-header {
@@ -41,18 +42,20 @@ body {
 } */
 
 .notes-container .note-body {
-  height: 400px;
+  height: 100%;
   width: 100%;
   padding: 0 1rem;
   border-radius: 10px;
   font-family: inherit;
   font-size: 1rem;
+}
 
+.notes-container .note-body p {
 }
 
 .notes-container textarea {
   min-height: 260px;
-  height: 400px;
+  height: 200px;
   width: 100%;
   border: none;
   outline: none;
@@ -65,4 +68,24 @@ body {
 
 .notes-container .hidden {
   display: none;
+}
+
+.add {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  border: none;
+  background-color: #9ec862;
+  border-radius: 7px;
+  padding: 0.5rem 1rem;
+  font-size: inherit;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.add:focus {
+  outline: none;
 }
